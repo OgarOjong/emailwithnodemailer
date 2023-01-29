@@ -1,0 +1,42 @@
+let transporter  = nodemailer.createTransport({
+        host: "smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: "88e79f65e7989d",
+          pass: "a191bb90a28f7e"
+        }});
+transporter.use('compile', hbs({
+            viewEngine:'express-handlebars',
+            viewPath:'./views/'
+        }));
+
+let mailOptions =  {
+            from: "from-example@email.com",
+            to: "to-example@email.com",
+            subject: "Subject",
+            text: "Hello SMTP Email",
+            attachement:[
+                {__filename:'abc.jpg',path:"./image/abc.jpg"}
+            ],
+            template:'index'
+        }
+
+
+transporter.sendMail(mailOptions, function (err,date){
+    if(err){
+        console.log(err);
+    }else {
+        console.log("Message sent!!");
+    }
+})     
+
+
+
+var transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    auth: {
+      user: "ojongemmanuel95@gmail.com",        //Add your email
+      pass: "vtyvqcjtausuhrba",        //Add your password
+    },
+  });

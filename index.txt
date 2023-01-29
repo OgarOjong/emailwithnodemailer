@@ -1,0 +1,29 @@
+const express =  require("express");
+const nodemailer = require("nodemailer");
+const nodemon = require("nodemon");
+const path = require("path");
+
+const app = express();
+const port = process.env.PORT || 3032;
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
+app.get("/", (req, res) => {
+
+ res.sendFile(path.join(__dirname, "views",'index.html'))
+//res.send('I AM HERE EARLY'); 
+})
+
+app.post("/email", (req, res)=> {
+    console.log('Data:', req.body);
+    res.json({Message:'Message Recieved'})
+
+})
+
+
+
+app.listen(port , () => {
+    console.log(`server up to ${port}`)
+   });
