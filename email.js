@@ -19,10 +19,7 @@ app.post ("/test",  (req, res,)=>{
 })
 
 
-app.post("/email", (req, res)=>{
-
-  let imageList = '/views/cc-visa.png'
-
+app.post("/email", async(req, res)=>{
    /* const data = {
         email: req.email,
         name: req.name, 
@@ -30,71 +27,71 @@ app.post("/email", (req, res)=>{
     let data = req.body;
     let {email,name,text,subject} =data;
     console.log("What is contained in req", data);
+try {
 
-    let transporter  = nodemailer.createTransport({
-        host: "premium79.web-hosting.com",
-        port: 465,
-        auth: {
-          user: "test@drdevelopers.ng",
-          pass: "EmailTest@2022"
-        }});
-    
-    
-      const handlebarOptions = {
-        viewEngine: {
-          extName: ".handlebars",
-          partialsDir: path.resolve(__dirname, "views"),
-          defaultLayout: false,
-        },
-        viewPath: path.resolve(__dirname, "views"),
-        extName: ".handlebars",
-      };
-    
-      transporter.use(
-        "compile",
-        hbs(handlebarOptions)
-      );
-    
-      var mailOptions = {
-        from: "test@drdevelopers.ng",
-        to: email,
-        subject: subject,
-        template: "index",
-        //text:"Lets Test this as well",
-        context: {
-            testname: name,
-            message: text,
-            imageList
-        },//Any template stored in viewPath
-        attachment:{
+  let transporter  = await nodemailer.createTransport({
+    host: "premium79.web-hosting.com",
+    port: 465,
+    auth: {
+      user: "test@drdevelopers.ng",
+      pass: "EmailTest@2022"
+    }});
 
-          filename:'cc-visa.png',
-          path: __dirname +'/views/cc-visa.png',
-          cid: 'cc-visa'
-        }
-                   
-      };
-    
-    
-    
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log(error);
-          res.send(
-            {
-              status: "Failed to send email",
-              payload:`Email failed to send to ${email}`,
-            })
-        } else {
-            console.log(info);
-           res.send({
-            status: "success",
-            payload:`Email successfully sent to ${email}`,
-            data: "Data Sent",
-          });
-          console.log("Email sent: " + info.response);
-        }
-      });    
+
+  const handlebarOptions = {
+    viewEngine: {
+      extName: ".handlebars",
+      partialsDir: path.resolve(__dirname, "views"),
+      defaultLayout: false,
+    },
+    viewPath: path.resolve(__dirname, "views"),
+    extName: ".handlebars",
+  };
+
+await   transporter.use(
+    "compile",
+    hbs(handlebarOptions)
+  );
+
+  var mailOptions = {
+    from: "test@drdevelopers.ng",
+    to: email,
+    subject: subject,
+    template: "index",
+    //text:"Lets Test this as well",
+    context: {
+        testname: name,
+        message: text
+    }//Any template stored in viewPath
+
+               
+  };
+
+
+
+ transporter.sendMail(mailOptions, async(error, info) => {
+    if (error) {
+      console.log(error);
+    await   res.send(
+        {
+          status: "Failed to send email",
+          payload:`Email failed to send to ${email}`,
+        })
+    } else {
+        console.log(info);
+      await res.send({
+        status: "success",
+        payload:`Email successfully sent to ${email}`,
+        data: "Data Sent",
+      });
+      console.log("Email sent: " + info.response);
+    }
+  });    
+  
+} catch (error) {
+  throw error;
+}
+  
 
 });
 
