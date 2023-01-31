@@ -4,6 +4,7 @@ const port = process.env.PORT || 3030;
 const nodemailer = require('nodemailer');
 const hbs = require("nodemailer-express-handlebars");
 const path = require("path");
+require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,15 +27,15 @@ app.post("/email", async(req, res)=>{
     };*/
     let data = req.body;
     let {email,name,text,subject} =data;
-    console.log("What is contained in req", data);
+   // console.log("What is contained in req", data);
 try {
 
   let transporter  = await nodemailer.createTransport({
-    host: "premium79.web-hosting.com",
+    host: "mail.irbfinancial.com",
     port: 465,
     auth: {
-      user: "test@drdevelopers.ng",
-      pass: "EmailTest@2022"
+      user: "info@irbfinancial.com",
+      pass: process.env.emailPass
     }});
 
 
@@ -54,7 +55,7 @@ await   transporter.use(
   );
 
   var mailOptions = {
-    from: "test@drdevelopers.ng",
+    from: "info@irbfinancial.com",
     to: email,
     subject: subject,
     template: "index",
