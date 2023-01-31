@@ -31,10 +31,10 @@ app.post("/email", async(req, res)=>{
 try {
 
   let transporter  = await nodemailer.createTransport({
-    host: "mail.irbfinancial.com",
+    host: process.env.host,
     port: 465,
     auth: {
-      user: "info@irbfinancial.com",
+      user:process.env.user,
       pass: process.env.emailPass
     }});
 
@@ -55,7 +55,7 @@ await   transporter.use(
   );
 
   var mailOptions = {
-    from: "info@irbfinancial.com",
+    from:process.env.emailFrom,
     to: email,
     subject: subject,
     template: "index",
