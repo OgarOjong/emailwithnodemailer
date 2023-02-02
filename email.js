@@ -27,7 +27,7 @@ app.post("/email", async(req, res)=>{
     };*/
     let data = req.body;
     let {email,name,text,subject} =data;
-   // console.log("What is contained in req", data);
+   console.log("What is contained in req", data);
 try {
 
   let transporter  = await nodemailer.createTransport({
